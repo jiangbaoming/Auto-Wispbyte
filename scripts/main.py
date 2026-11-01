@@ -654,7 +654,7 @@ def restart_server(sb, identifier: str) -> bool:
     block_ads_modals(sb)
 
     start_btn = None
-    for btn_sel, btn_name in [('button#start-btn', 'Start'), ('button#restart-btn', 'Restart')]:
+    for btn_sel, btn_name in [('.power > button:first-child', 'Start/Restart'), ('button#start-btn', 'Start'), ('button#restart-btn', 'Restart')]:
         try:
             start_btn = sb.wait_for_element_visible(btn_sel, timeout=8)
             log(f"找到 {btn_name} 按钮")
@@ -671,7 +671,7 @@ def restart_server(sb, identifier: str) -> bool:
         log("✅ 已点击 Start/Restart 按钮")
     except Exception:
         try:
-            sb.execute_script("document.querySelector('#start-btn, #restart-btn').click()")
+            sb.execute_script("document.querySelector('.power > button:first-child, #start-btn, #restart-btn').click()")
             log("✅ 已通过 JS 点击 Start/Restart 按钮")
         except Exception as e:
             log(f"点击 Start/Restart 失败: {e}", "ERROR")
